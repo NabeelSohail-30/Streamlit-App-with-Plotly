@@ -28,13 +28,19 @@ st.write(df.columns)
 # summary stat
 st.write(df.describe())
 
+# Create a sidebar for user input
+st.sidebar.header("Plot Configuration")
 
-# data management
-year_option = df['year'].unique().tolist()
-year = st.selectbox("which year should we plot?", year_option, 0)
+# User input for plot data
+x_axis = st.sidebar.selectbox("X-Axis", df.columns)
+y_axis = st.sidebar.selectbox("Y-Axis", df.columns)
+color = st.sidebar.selectbox("Color", df.columns)
+hover = st.sidebar.selectbox("Hover Name", df.columns)
+animation = st.sidebar.selectbox("Animation Frame", df.columns)
+animationGrp = st.sidebar.selectbox("Animation Group", df.columns)
+
 
 # plotting
-
 fig = px.scatter(df, x= 'gdpPercap', y ='lifeExp', size='pop', color='continent', hover_name='continent',
                 log_x=True, size_max=55, range_x=[100,100000], range_y=[20,90],
                 animation_frame='year', animation_group='country')
