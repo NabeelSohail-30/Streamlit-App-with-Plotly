@@ -4,8 +4,7 @@ import plotly.express as px
 import pandas as pd
 
 
-# import dataset
-st.title("Plotly and Streamlit ko mila k app bnana")
+st.title("Interactive Data Visualization with Plotly")
 df = px.data.gapminder() 
 st.write(df)
 st.write(df.columns)
