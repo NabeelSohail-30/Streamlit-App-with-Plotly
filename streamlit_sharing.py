@@ -35,17 +35,18 @@ st.sidebar.header("Plot Configuration")
 x_axis = st.sidebar.selectbox("X-Axis", df.columns)
 y_axis = st.sidebar.selectbox("Y-Axis", df.columns)
 color = st.sidebar.selectbox("Color", df.columns)
+size = st.sidebar.selectbox("Size", df.columns)
 hover = st.sidebar.selectbox("Hover Name", df.columns)
 animation = st.sidebar.selectbox("Animation Frame", df.columns)
 animationGrp = st.sidebar.selectbox("Animation Group", df.columns)
 
 
 # plotting
-fig = px.scatter(df, x= 'gdpPercap', y ='lifeExp', size='pop', color='continent', hover_name='continent',
+fig = px.scatter(df, x= x_axis, y =y_axis, size=size, color=color, hover_name=hover,
                 log_x=True, size_max=55, range_x=[100,100000], range_y=[20,90],
-                animation_frame='year', animation_group='country')
+                animation_frame=animation, animation_group=animationGrp)
                 
 
 fig.update_layout(width=800, height=600)
 
-st.write(fig)         
+st.write(fig)
