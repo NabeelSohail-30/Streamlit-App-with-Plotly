@@ -5,7 +5,23 @@ import pandas as pd
 
 
 st.title("Interactive Data Visualization with Plotly")
-df = px.data.gapminder() 
+
+
+# Create a selectbox to choose an in-built dataset
+selected_dataset = st.selectbox("Select a Dataset", ["Iris", "Tips", "Wind", "GapMinder"])
+
+
+# Load the selected dataset
+if selected_dataset == "Iris":
+    df = px.data.iris()
+elif selected_dataset == "Tips":
+    df = px.data.tips()
+elif selected_dataset == "GapMinder":
+    df = px.data.gapminder()
+else:
+    df = px.data.wind()
+
+
 st.write(df)
 st.write(df.columns)
 
