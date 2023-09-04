@@ -44,18 +44,31 @@ hover = st.sidebar.selectbox("Hover Name", df.columns)
 animation = st.sidebar.selectbox("Animation Frame", df.columns)
 animation_grp = st.sidebar.selectbox("Animation Group", df.columns)
 
-df[size] = pd.to_numeric(df[size], errors="coerce")
+# Check if the selected size column is numeric
+if size in df.select_dtypes(include=["number"]).columns:
+    # Only proceed if size is a numeric column
+    st.write("### Plot")
 
-# Plotting
-st.write("### Plot")
+    fig = px.scatter(
+        df,
+        x=x_axis,
+        y=y_axis,
+        size=size,
+        color=color,
+        hover_name=hover,
+        log_x=True,
+        size_max=55,
+        range_x=[100, 100000],
+        range_y=[20, 90],
+        animation_frame=animation,
+        animation_group=animation_grp,
+    )
 
-fig = px.scatter(df, x=x_axis, y=y_axis, size=size, color=color, hover_name=hover,
-                 log_x=True, size_max=55, range_x=[100, 100000], range_y=[20, 90],
-                 animation_frame=animation, animation_group=animation_grp)
+    fig.update_layout(width=800, height=600)
 
-fig.update_layout(width=800, height=600)
-
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
+else:
+    st.warning(f"'{size}' is not a numeric column in the dataset. Please choose a valid numeric column for 'Size'.")
 
 # Add a footer with credits and data source information
 st.markdown(
